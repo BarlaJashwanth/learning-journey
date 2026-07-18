@@ -1,0 +1,2 @@
+this is new file for creating and write content into it
+ i made this file for learning the concepts of file handling
