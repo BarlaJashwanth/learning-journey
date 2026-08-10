@@ -17,7 +17,7 @@
 * **Creator:** Written by Gordon Lyon (pseudonym *Fyodor*) as a tool to map entire networks easily and find open ports and services.
 * **Pop Culture:** Featured in movies like *The Matrix* and the popular series *Mr. Robot*.
 
-```
+
 # Why Use Nmap?
 
 Nmap (Network Mapper) is a widely preferred tool among cybersecurity professionals for network scanning and security auditing. It allows users to quickly map out networks without needing complex commands, while offering flexibility for both basic checks and advanced scripting.
