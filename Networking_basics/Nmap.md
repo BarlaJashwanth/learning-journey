@@ -3,7 +3,7 @@
 
 **Nmap** is short for **Network Mapper**. It is an open-source Linux command-line tool used to scan IP addresses and ports in a network and to detect installed applications.
 
----
+---o
 
 ## Key Functions
 
@@ -32,3 +32,27 @@ Nmap (Network Mapper) is a widely preferred tool among cybersecurity professiona
 * **Operating System (OS) Fingerprinting:** Detects the OS type and version on target devices to aid in planning penetration testing strategies.
 * **Vulnerability & Attack Testing:** Uses pre-written scripts from the Nmap Scripting Engine (NSE) during security audits to test systems for vulnerabilities.
 * **Graphical Interface (Zenmap):** Includes a GUI called Zenmap that creates visual network maps for better usability and reporting.
+
+
+
+  # What is a Port Scan?
+
+A **port scan** is a technique used to discover open doors or weak points in a network. By sending messages to specific ports on a system and analyzing the responses, users can determine if ports are open, active, or protected.
+
+---
+
+## Purpose & Uses
+
+* **Attacker Perspective:** Cybercriminals use port scans to find open ports, track data flow, test for weak points, and identify active security devices like firewalls.
+* **Defender Perspective:** Businesses use port scanning to audit their own systems for vulnerabilities and ensure network security using tools like **IP scanning**, **Network Mapper (Nmap)**, and **Netcat**.
+
+---
+
+## Information Revealed by Port Scanning
+
+* **Services running** on the system
+* **Users** who own these services
+* Whether **anonymous logins** are allowed
+* Which network services **require authentication**
+
+  ## 
