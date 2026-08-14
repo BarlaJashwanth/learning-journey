@@ -86,6 +86,8 @@ A **port scan** is a technique used to discover open doors or weak points in a n
    * example: nmap -p- 198.167.89.90
    * what does it do : scan all tcp ports
 <img width="400" height="351" alt="image" src="https://github.com/user-attachments/assets/62ec5b66-24ca-4a44-87a7-53e78c78290d" />
+<img width="376" height="215" alt="image" src="https://github.com/user-attachments/assets/76375920-222e-4c1f-9bf2-10ad08488ce4" />
+
 
 
  * example: nmap -sU -sT -p- 198.167.89.90
