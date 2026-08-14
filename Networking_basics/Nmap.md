@@ -55,4 +55,9 @@ A **port scan** is a technique used to discover open doors or weak points in a n
 * Whether **anonymous logins** are allowed
 * Which network services **require authentication**
 
-  ## 
+  ## Scanning TCP and UDP ports by using nmap:
+
+  code: nmap targeted ip
+  example: nmap 192.168.230.45
+
+  what it does :
