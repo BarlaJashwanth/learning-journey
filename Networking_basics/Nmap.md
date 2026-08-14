@@ -3,7 +3,7 @@
 
 **Nmap** is short for **Network Mapper**. It is an open-source Linux command-line tool used to scan IP addresses and ports in a network and to detect installed applications.
 
----o
+---
 
 ## Key Functions
 
@@ -60,4 +60,7 @@ A **port scan** is a technique used to discover open doors or weak points in a n
   * code: nmap targeted ip
   * example: nmap 192.168.230.45
 
-  what it does :
+  what it does : it scans top 1000 common TCP ports (to be noted not 1000 ports 1 to 1000, it scans common tcp top 1000 ports )
+
+  <img width="313" height="248" alt="image" src="https://github.com/user-attachments/assets/babe2197-3292-44d2-b0d9-a428f796b133" />
+
