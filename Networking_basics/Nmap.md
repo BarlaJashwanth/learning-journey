@@ -57,10 +57,28 @@ A **port scan** is a technique used to discover open doors or weak points in a n
 
   ## Scanning TCP and UDP ports by using nmap:
 
-  * code: nmap targeted ip
+  * 1]  code: nmap targeted ip
   * example: nmap 192.168.230.45
 
   what it does : it scans top 1000 common TCP ports (to be noted not 1000 ports 1 to 1000, it scans common tcp top 1000 ports )
 
   <img width="313" height="248" alt="image" src="https://github.com/user-attachments/assets/babe2197-3292-44d2-b0d9-a428f796b133" />
+  
+
+  * 2]  code: nmap -sU -sT targeted ip
+  * example: nmap -sU -sT 192.168.230.45
+ 
+    what it does : it scans top 1000 common UDP ports (to be noted not 1000 ports 1 to 1000, it scans common udp 1000 ports)
+    -sU stands for UDP
+    -sT stands for TCP
+
+    <img width="327" height="320" alt="image" src="https://github.com/user-attachments/assets/5d108265-979a-4c56-82f3-e490b407b4cb" />
+<img width="388" height="341" alt="image" src="https://github.com/user-attachments/assets/490325f0-f985-4851-8ae8-1265696219ac" />
+
+
+
+
+
+    
+    
 
