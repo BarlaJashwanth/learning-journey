@@ -83,14 +83,14 @@ A **port scan** is a technique used to discover open doors or weak points in a n
  <img width="406" height="218" alt="image" src="https://github.com/user-attachments/assets/f8f58645-7e25-407e-9afd-96bf7adf1dd5" />
 
  4] nmap -p- targeted ip
- example: nmap -p- 198.167.89.90
- what does it do : scan all tcp ports
+ *example: nmap -p- 198.167.89.90
+ *what does it do : scan all tcp ports
 <img width="400" height="351" alt="image" src="https://github.com/user-attachments/assets/62ec5b66-24ca-4a44-87a7-53e78c78290d" />
 
 
  example: nmap -sU -sT -p- 198.167.89.90
- what does it do : scan all 65036 ports all TCP and UDP (sometimes firewall may block us)
- takes huge time ...
+* what does it do : scan all 65036 ports all TCP and UDP (sometimes firewall may block us)
+ *takes huge time ...
  
  
 
