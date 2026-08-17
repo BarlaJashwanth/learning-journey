@@ -93,7 +93,45 @@ A **port scan** is a technique used to discover open doors or weak points in a n
  * example: nmap -sU -sT -p- 198.167.89.90
  * what does it do : scan all 65036 ports all TCP and UDP (sometimes firewall may block us)
  * takes huge time ...
- 
+
+ # TCP Headers Made Simple
+
+TCP flags are short control signals that help two computers talk to each other reliably over a network.
+
+## The 6 Control Flags
+
+* **SYN (Synchronize)**: **"Hey, can we talk?"**  
+  Starts a brand-new connection request.
+
+* **ACK (Acknowledge)**: **"Got it!"**  
+  Confirms that data was received successfully.
+
+* **PSH (Push)**: **"Pass this along right now!"**  
+  Tells the computer to deliver the data immediately without waiting for the buffer to fill up.
+
+* **URG (Urgent)**: **"Read this first!"**  
+  Marks high-priority data that must jump to the front of the line.
+
+* **FIN (Finish)**: **"I'm all done, goodbye!"**  
+  Gracefully ends an active connection.
+
+* **RST (Reset)**: **"Hang up immediately!"**  
+  Abruptly cancels a connection due to an error or a closed port.
+
+---
+
+## TCP headers
+
+| Flag | Meaning | Plain English Role |
+| :--- | :--- | :--- |
+| **SYN** | Start Connection | Asks to open a new conversation. |
+| **ACK** | Confirm Data | Says "I received your last message." |
+| **PSH** | Bypass Buffer | Delivers live data (like chat text) instantly. |
+| **URG** | High Priority | Processes emergency data before everything else. |
+| **FIN** | Close Gracefully | Says "No more data to send, let's close." |
+| **RST** | Abort Connection | Forces an instant shutdown when an error occurs. |
+
+> **Security Note:** A packet marked with both `SYN` (Hello) and `FIN` (Goodbye) is invalid and usually indicates a hacker port-scanning attempt.
  
 
 
