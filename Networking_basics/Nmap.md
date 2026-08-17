@@ -132,10 +132,50 @@ TCP flags are short control signals that help two computers talk to each other r
 | **RST** | Abort Connection | Forces an instant shutdown when an error occurs. |
 
 > **Security Note:** A packet marked with both `SYN` (Hello) and `FIN` (Goodbye) is invalid and usually indicates a hacker port-scanning attempt.
- 
+
+ ## 3 Way Handshake
+ <img width="746" height="329" alt="image" src="https://github.com/user-attachments/assets/5ea5e0af-907f-4984-ae28-ed05ab142688" />
+
+ 3 way handshake is very much necessary for TCP connection UDP connection has no 3 way handshake 
+
+ # TCP 3-Way Handshake Made Simple
+
+The 3-way handshake is the 3-step process two computers use to start a reliable conversation over a network.
+
+---
+
+## The 3 Steps
+
+1. **Step 1: SYN** — *"Can we talk?"*
+   * Computer A sends a `SYN` packet to ask Computer B if it is open to starting a conversation.
+
+2. **Step 2: SYN-ACK** — *"Yes! Can you hear me?"*
+   * Computer B receives the request, agrees (`ACK`), and asks Computer A if it can hear them back (`SYN`).
+
+3. **Step 3: ACK** — *"Yes, connection established!"*
+   * Computer A sends a final `ACK` to confirm it received the response. The connection is now active, and data transfer can begin.
+
+---
+
+## Handshake Summary
+
+| Step | Flag Sent | Plain English Meaning | Action |
+| :--- | :--- | :--- | :--- |
+| **1** | **SYN** | "Hey, are you free to chat?" | Sender initiates connection |
+| **2** | **SYN + ACK** | "Yes I am! Can you hear me?" | Receiver confirms and responds |
+| **3** | **ACK** | "Got it! Let's start." | Sender confirms; connection open |
+
+> **Real-World Analogy**: Think of it like a phone call.  
+> You say **"Hello?"** (SYN) -> They reply **"Hi! Can you hear me?"** (SYN-ACK) -> You say **"Yep, loud and clear!"** (ACK). Now you start talking.
 
 
+## Closed Port (Connection Refused)
 
+The target computer receives your request, but no program is listening on that port.
+
+* **Step 1:** Computer A sends **SYN** (*"Hey, can we talk on Port 80?"*).
+* **Step 2:** Computer B replies with **RST-ACK** (*"No! Nobody is here, go away!"*).
+* **Result:** The connection attempt is instantly rejected.
 
 
 
