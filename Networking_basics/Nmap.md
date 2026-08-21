@@ -177,6 +177,27 @@ The target computer receives your request, but no program is listening on that p
 * **Step 2:** Computer B replies with **RST-ACK** (*"No! Nobody is here, go away!"*).
 * **Result:** The connection attempt is instantly rejected.
 
+  ## 5] nmap -sn targeted ip : this tells wheather ip address is up or down
+  <img width="409" height="99" alt="image" src="https://github.com/user-attachments/assets/8502198e-1ea7-41df-a289-3010c7e27062" />
+  <img width="503" height="71" alt="image" src="https://github.com/user-attachments/assets/3ce5f7fb-8096-44b4-a795-9813722abd14" />
+  * in both cases above metasplot kept open in first case and in second case metasploit is closed so ipadress is up and down in two differnt cases
+
+
+<img width="813" height="235" alt="image" src="https://github.com/user-attachments/assets/83f14b06-10bd-4f15-acf1-dec4a3531d94" />
+* in this above case at a time we are scanning 100 IP adresses at a time
+  
+* my metasploit ip : 192.168.230.129
+* my kali linux ip : 192.168.230.128
+<img width="430" height="157" alt="image" src="https://github.com/user-attachments/assets/77143547-5edb-4edd-9f6c-f23952f1aa7f" />
+
+
+## 6] sudo netdiscover -i eth0
+<img width="491" height="108" alt="image" src="https://github.com/user-attachments/assets/d67a0266-0a7a-4d5d-9163-aa79eaff1056" />
+* this gives who all conected to network 
+
+
+
+
 
 
     
