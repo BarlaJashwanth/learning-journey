@@ -193,7 +193,17 @@ The target computer receives your request, but no program is listening on that p
 
 ## 6] sudo netdiscover -i eth0
 <img width="491" height="108" alt="image" src="https://github.com/user-attachments/assets/d67a0266-0a7a-4d5d-9163-aa79eaff1056" />
-* this gives who all conected to network 
+* this gives who all conected to network
+
+## 7] nmap -sn -iL file name 
+<img width="266" height="155" alt="image" src="https://github.com/user-attachments/assets/d56e6a78-9eff-4bef-b348-d8f46e103708" />
+<img width="182" height="102" alt="image" src="https://github.com/user-attachments/assets/4e720ca3-34df-4ae8-9536-2cb2dd6ac72e" />
+* saving it on desktop and just dragging it and pasting at file name which contains valid ip it just analyse and tell weather host is up or down
+<img width="381" height="122" alt="image" src="https://github.com/user-attachments/assets/1620d906-5d3c-4c67-9add-b0602e41afc5" />
+
+
+
+
 
 
 
