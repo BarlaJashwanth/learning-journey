@@ -208,6 +208,227 @@ The target computer receives your request, but no program is listening on that p
 <img width="357" height="332" alt="image" src="https://github.com/user-attachments/assets/cf2a7b20-2147-408f-98b8-5a3b28f1f9bf" />
 
 
+# UDP Scan in Nmap
+
+## 1. What is UDP?
+
+**UDP (User Datagram Protocol)** is a connectionless transport-layer protocol.
+
+Unlike TCP:
+
+- UDP does not use a three-way handshake.
+- UDP does not use SYN/SYN-ACK.
+- UDP does not establish a connection before sending data.
+- UDP is generally faster and has less overhead than TCP.
+
+---
+
+# 2. UDP Scan in Nmap
+
+Nmap uses the `-sU` option for UDP scanning.
+
+### Basic Syntax
+
+```bash
+nmap -sU <target-ip>
+
+nmap -sU 192.168.1.10
+
+Your Machine
+     |
+     | UDP Probe
+     v
+Target UDP Port
+     |
+     +--------------------+
+     |                    |
+     v                    v
+UDP Response        ICMP Port Unreachable
+     |                    |
+     v                    v
+   OPEN                 CLOSED
+
+UDP Packet
++---------------------------+
+| Source Port               |
++---------------------------+
+| Destination Port          |
++---------------------------+
+| Length                    |
++---------------------------+
+| Checksum                  |
++---------------------------+
+| Payload / Data (optional) |
++---------------------------+
+
+5. What Does the UDP Probe Contain?
+
+A UDP probe can contain:
+
+Source port
+Destination port
+UDP length
+UDP checksum
+Payload/data (depending on the probe)
+
+Nmap does not always send the same payload for every UDP port.
+
+For some well-known services, Nmap can use protocol-specific probes.
+
+Examples:
+
+UDP 53  → DNS-related probe
+UDP 161 → SNMP-related probe
+
+For some ports, Nmap may use an empty UDP payload or a generic probe.
+
+Therefore:
+
+A UDP probe is not necessarily just an empty UDP packet.
+
+6. UDP Port States in Nmap
+
+Nmap commonly reports UDP ports as:
+
+Open
+
+The UDP service responds to the probe.
+
+Example:
+
+53/udp open domain
+
+Conceptually:
+
+Nmap
+ |
+ | UDP Probe
+ v
+Port 53
+ |
+ | UDP Response
+ v
+Nmap
+
+Nmap can determine that the port is open.
+
+Closed
+
+The target responds with an ICMP Port Unreachable message.
+
+Example:
+
+53/udp closed domain
+
+Conceptually:
+
+Nmap
+ |
+ | UDP Probe
+ v
+Closed UDP Port
+ |
+ | ICMP Port Unreachable
+ v
+Nmap
+Open|Filtered
+
+Nmap receives no response.
+
+Example:
+
+53/udp open|filtered domain
+
+Nmap cannot determine whether:
+
+The port is open but the application did not respond
+The port is filtered by a firewall
+
+Conceptually:
+
+Nmap
+ |
+ | UDP Probe
+ v
+Target Port
+ |
+ | No Response
+ v
+Nmap
+
+Result: open|filtered
+7. Important UDP Scan Command Examples
+Scan a target for UDP ports
+nmap -sU 192.168.1.10
+Scan a specific UDP port
+nmap -sU -p 53 192.168.1.10
+
+This scans UDP port 53.
+
+Scan multiple UDP ports
+nmap -sU -p 53,67,68,69,123,161 192.168.1.10
+Scan a UDP port range
+nmap -sU -p 1-100 192.168.1.10
+Scan the top 20 common UDP ports
+nmap -sU --top-ports 20 192.168.1.10
+Service/version detection with UDP scan
+nmap -sU -sV 192.168.1.10
+
+-sV attempts to identify the service and version running on discovered ports.
+
+8. UDP Scan vs TCP SYN Scan
+Feature	TCP SYN Scan	UDP Scan
+Nmap option	-sS	-sU
+Protocol	TCP	UDP
+Connection-oriented	Yes	No
+Uses SYN	Yes	No
+Three-way handshake	Not completed	No
+Closed-port indication	TCP RST	ICMP Port Unreachable
+Typical speed	Faster	Slower
+Common ambiguous state	Less common	`open
+9. Why is UDP Scanning Slower?
+
+UDP scanning is often slower than TCP SYN scanning.
+
+One major reason is that many UDP services do not respond to unexpected packets.
+
+Nmap may therefore have to wait for timeouts.
+
+UDP Probe
+   |
+   |---- No response ----|
+                       Timeout
+                           |
+                           v
+                    Try to determine
+                    port state
+
+Firewalls and rate limiting can make UDP scanning even slower.
+
+10. Simple UDP Scan Flow
+             Start UDP Scan
+                    |
+                    v
+          Send UDP Probe
+                    |
+                    v
+             Wait for response
+                    |
+          +---------+---------+
+          |                   |
+          v                   v
+   UDP Response       ICMP Port Unreachable
+          |                   |
+          v                   v
+        OPEN                CLOSED
+
+          If no response:
+                    |
+                    v
+             OPEN|FILTERED
+
+
+
 
 
 
