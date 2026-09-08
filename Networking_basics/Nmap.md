@@ -427,6 +427,285 @@ Firewalls and rate limiting can make UDP scanning even slower.
                     v
              OPEN|FILTERED
 
+# ARP (Address Resolution Protocol)
+
+## 1. What is ARP?
+
+**ARP = Address Resolution Protocol**
+
+ARP is used in **IPv4 networks** to find the **MAC address associated with a known IPv4 address** on the local network.
+
+### Main Function
+
+```text
+IPv4 Address → ARP → MAC Address
+
+4. How ARP Works
+
+Suppose:
+
+Computer A
+
+IP:  192.168.1.10
+MAC: 11:11:11:11:11:11
+
+wants to communicate with:
+
+Computer B
+
+IP:  192.168.1.20
+MAC: 22:22:22:22:22:22
+
+Computer A knows:
+
+192.168.1.20
+
+but does not know:
+
+22:22:22:22:22:22
+
+ARP is used to find it.
+
+ARP Process
+1. Check ARP/neighbor cache
+        ↓
+2. MAC address not found
+        ↓
+3. Send ARP Request
+        ↓
+4. Target sends ARP Reply
+        ↓
+5. Store IP → MAC mapping
+        ↓
+6. Send normal network traffic
+5. ARP Request
+
+An ARP Request asks:
+
+"Who has 192.168.1.20?"
+
+Because the sender doesn't know the target MAC address, the request is normally sent as a broadcast on the local network.
+
+Computer A
+     |
+     | ARP Request
+     | "Who has 192.168.1.20?"
+     ↓
+   Switch
+   / | \
+  /  |  \
+ PC-B PC-C PC-D
+
+All devices receive the request, but normally only the device owning that IP responds.
+
+6. ARP Reply
+
+The device that owns the requested IP sends an ARP Reply.
+
+Example:
+
+ARP Request:
+
+"Who has 192.168.1.20?"
+
+Target responds:
+
+ARP Reply:
+
+"192.168.1.20 is at
+22:22:22:22:22:22"
+
+The original computer now knows:
+
+192.168.1.20
+      ↓
+22:22:22:22:22:22
+7. Complete ARP Communication
+Computer A
+IP:  192.168.1.10
+MAC: 11:11:11:11:11:11
+       |
+       | ARP Request
+       | "Who has 192.168.1.20?"
+       ↓
+     Switch
+       |
+       ↓
+Computer B
+IP:  192.168.1.20
+MAC: 22:22:22:22:22:22
+       |
+       | ARP Reply
+       | "192.168.1.20 is at
+       |  22:22:22:22:22:22"
+       ↓
+Computer A
+
+After this:
+
+192.168.1.20 → 22:22:22:22:22:22
+
+is known by Computer A.
+
+8. ARP Cache
+
+The computer stores recently learned IP-to-MAC mappings in an ARP/neighbor cache.
+
+Example:
+
+IP Address       MAC Address
+
+192.168.1.1      AA:AA:AA:AA:AA:AA
+192.168.1.20     BB:BB:BB:BB:BB:BB
+192.168.1.30     CC:CC:CC:CC:CC:CC
+
+This prevents the computer from having to perform ARP for every communication.
+
+9. View ARP Cache in Kali
+
+Modern Linux uses the neighbor table, which contains ARP information for IPv4.
+
+ip neigh
+
+Example:
+
+192.168.1.1 dev eth0 lladdr AA:BB:CC:DD:EE:FF REACHABLE
+
+Meaning:
+
+IP:
+192.168.1.1
+
+MAC:
+AA:BB:CC:DD:EE:FF
+
+Interface:
+eth0
+
+State:
+REACHABLE
+10. ARP Request and Broadcast
+
+ARP Requests are normally broadcast because the sender does not initially know the target MAC.
+
+The Ethernet broadcast MAC address is:
+
+FF:FF:FF:FF:FF:FF
+
+Conceptually:
+
+             Switch
+           /   |   \
+          /    |    \
+       PC-A   PC-B   PC-C
+         |
+         | ARP Request
+         |
+         | "Who has 192.168.1.20?"
+         ↓
+       Everyone receives it
+
+The device that owns the requested IP sends the response.
+
+<img width="427" height="302" alt="image" src="https://github.com/user-attachments/assets/adff6fda-71f3-43b7-82f8-2efa31669c53" />
+
+Single host
+sudo nmap -sn -PR 192.168.1.20
+
+Nmap essentially asks:
+
+Who has 192.168.1.20?
+        ↓
+ARP Request
+        ↓
+ARP Reply?
+        ↓
+YES → Host is up
+Entire local network
+
+For example, if your Kali machine has:
+
+192.168.230.130/24
+
+your network is likely:
+
+192.168.230.0/24
+
+You can scan:
+
+sudo nmap -sn -PR 192.168.230.0/24
+
+This checks the local subnet for responding hosts.
+
+ARP scan without port scanning
+
+This is the command you should mainly remember:
+
+sudo nmap -sn -PR 192.168.230.0/24
+
+The difference is important:
+
+sudo nmap -PR 192.168.230.0/24
+
+→ ARP can be used for discovery, then Nmap continues with port scanning.
+
+sudo nmap -sn -PR 192.168.230.0/24
+
+→ ARP host discovery only.
+
+Useful options
+Disable DNS resolution
+sudo nmap -sn -PR -n 192.168.230.0/24
+
+-n = don't perform DNS resolution.
+
+Show why Nmap considers a host up
+sudo nmap -sn -PR --reason 192.168.230.0/24
+
+You may see a reason such as:
+
+Host is up, received arp-response
+Verbose output
+sudo nmap -sn -PR -v 192.168.230.0/24
+See packet-level activity
+sudo nmap -sn -PR --packet-trace 192.168.230.130
+
+This is particularly useful while you're learning because you can see the packets Nmap is sending.
+
+ARP scan vs SYN scan
+
+Don't mix these up:
+
+ARP scan (-PR)
+      ↓
+"Which devices are alive?"
+      ↓
+Host discovery
+SYN scan (-sS)
+      ↓
+"Which TCP ports are open?"
+      ↓
+Port scanning
+Your current Nmap map
+HOST DISCOVERY
+│
+├── ARP       → -PR
+├── ICMP      → -PE
+├── TCP SYN   → -PS
+├── TCP ACK   → -PA
+└── UDP       → -PU
+
+
+PORT SCANNING
+│
+├── SYN       → -sS
+├── TCP       → -sT
+├── UDP       → -sU
+└── ACK       → -sA
+
+For your VMware Kali lab, the best practical command to understand ARP scanning is:
+
+sudo nmap -sn -PR 192.168.230.0/24
 
 
 
